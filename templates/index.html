@@ -1,0 +1,65 @@
+{% include "header.html" %}
+
+<div class="container"
+     style="padding-top: 50px; background-image: url('{{ url_for('static', filename='img/image.png')}}')">
+
+    <!--    Site title-->
+    {% if colors %}
+    <h2><b>Your uploaded image has <br>{{ length }} colours on it!</b></h2>
+    {% else %}
+    <h2 style="color: #000; text-align: center; padding-bottom: 25px;">
+        We extract all the colours within <br>any image you upload</h2>
+    {% endif %}
+
+    <!--    Upload image-->
+    <div class="clearfix">
+        <div class="card float-right" style="background: #fff; width: 250px;">
+            <form action="{{ url_for('upload_image', color_format=1) }}" method="post">
+                <label><b>Get Hex Colour Codes</b></label><br>
+                <input type="submit" name="file" value="upload image"
+                       class="btn btn-outline-primary" style="border-radius: 50%" required>
+            </form>
+        </div>
+
+        <div class="card float-left" style="background: #fff; width: 250px;">
+            <form action="{{ url_for('upload_image', color_format=2) }}" method="post" class="">
+                <label><b>Get RGB Colour Codes</b></label><br>
+                <input type="submit" name="file" value="upload image"
+                       class="btn btn-outline-primary" style="border-radius: 50%" required>
+            </form>
+        </div>
+
+    </div>
+
+    <!--Error message-->
+    <div style="color: red;">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <!--    colors layout-->
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-sm-1 g-100;">
+        {% for color in colors: %}
+        <div class="col" style="margin-top: 20px;">
+            <form action="{{ url_for('copy', copied=color) }}" method="post" class="">
+                <button type="submit" name="file" value="{{ color }}"
+                        class="color-a"
+                        style="width: 217px; height: 217px; border-radius: 5%; background-color: {{ color }};"
+                        onMouseOut="this.style.color='#000'"
+                        onMouseOver="this.style.color='#fff'">
+                    {{color}}
+                </button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+</div>
+
+{% include "footer.html" %}
+

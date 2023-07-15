@@ -1,0 +1,57 @@
+{% include "header.html" %}
+
+<div class="container"
+     style="padding-top: 50px; background-image: url('{{ url_for('static', filename='img/image.png')}}')">
+
+    <!--    Site title-->
+    <h2 style="padding-bottom: 20px;"><b>Color code "{{ color }}" successfully copied!</b></h2>
+
+    <!--    Upload image-->
+    <div class="clearfix">
+        <div class="card float-right" style="background: #fff; width: 250px;">
+            <form action="{{ url_for('upload_image', color_format=1) }}" method="post">
+                <label><b>Get Hex Colour Codes</b></label><br>
+                <input type="submit" name="file" value="upload image"
+                       class="btn btn-outline-primary" style="border-radius: 50%" required>
+            </form>
+        </div>
+
+        <div class="card float-left" style="background: #fff; width: 250px;">
+            <form action="{{ url_for('upload_image', color_format=2) }}" method="post" class="">
+                <label><b>Get RGB Colour Codes</b></label><br>
+                <input type="submit" name="file" value="upload image"
+                       class="btn btn-outline-primary" style="border-radius: 50%" required>
+            </form>
+        </div>
+
+    </div>
+
+    <!--Error message-->
+    <div style="color: red;">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <!--    colors layout-->
+    <div class="row row-cols-1 row-cols-md-1 row-cols-lg-1 row-cols-sm-1 g-100;">
+        <div class="col" style="margin-top: 20px;">
+            <form action="{{ url_for('copy', copied=color) }}" method="post" class="">
+                <button type="submit" name="file" value="{{ color }}"
+                        class="color-a"
+                        style="width: 217px; height: 193px; border-radius: 5%; background-color: {{ color }};"
+                        onMouseOut="this.style.color='#000'"
+                        onMouseOver="this.style.color='#fff'">
+                    {{ color }} <br> Copied
+                </button>
+            </form>
+        </div>
+    </div>
+    <hr>
+</div>
+
+{% include "footer.html" %}
