@@ -1,6 +1,6 @@
 body {
   font: 15px arial;
-  background: #545454;
+  background: #E0F7FA;
   margin-top: 100px;
   text-align: center;
 }
@@ -53,7 +53,7 @@ header {
 section {
   position: absolute;
   top: 7px;
-  left: 5px;
+  left: 10px;
   font-size: 30px;
   transition: all ease-in 300ms;
 }
@@ -66,7 +66,7 @@ section {
   padding: 1.04em;
   bottom: 80%;
   color: #b2b2b2;
-  background: #3f3f3f;
+  background: #fff7;
   transition: all ease-in 300ms;
   overflow: hidden;
 }
